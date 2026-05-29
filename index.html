@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#263341" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Time Areas" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Daily Time Areas</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Daily Time Areas</p>
+          <h1>Record where your time goes.</h1>
+        </div>
+        <div class="date-control">
+          <label for="active-date">Day</label>
+          <input id="active-date" type="date" />
+        </div>
+      </header>
+
+      <section class="summary-band" aria-label="Day summary">
+        <div>
+          <span class="summary-label">Tracked</span>
+          <strong id="tracked-total">0h 00m</strong>
+        </div>
+        <div>
+          <span class="summary-label">Unrecorded</span>
+          <strong id="untracked-total">24h 00m</strong>
+        </div>
+        <div>
+          <span class="summary-label">Main area</span>
+          <strong id="main-area">No data</strong>
+        </div>
+      </section>
+
+      <section class="entry-layout">
+        <form id="entry-form" class="entry-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Add Time</p>
+              <h2>New record</h2>
+            </div>
+            <button class="icon-button" type="button" id="clear-form" aria-label="Clear form" title="Clear form">↺</button>
+          </div>
+
+          <div class="field">
+            <label for="category">Activity area</label>
+            <select id="category" required></select>
+          </div>
+
+          <div class="time-grid">
+            <div class="field">
+              <label for="start-time">Start</label>
+              <input id="start-time" type="time" required />
+            </div>
+            <div class="field">
+              <label for="end-time">End</label>
+              <input id="end-time" type="time" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="note">Note</label>
+            <input id="note" type="text" placeholder="Optional detail" maxlength="80" />
+          </div>
+
+          <button class="primary-button" type="submit">Add record</button>
+        </form>
+
+        <section class="timer-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Live Timer</p>
+              <h2 id="timer-display">00:00:00</h2>
+            </div>
+            <span id="timer-status" class="status-pill">Ready</span>
+          </div>
+          <div class="field">
+            <label for="timer-category">Tracking area</label>
+            <select id="timer-category"></select>
+          </div>
+          <div class="timer-actions">
+            <button class="primary-button" type="button" id="timer-toggle">Start</button>
+            <button class="ghost-button" type="button" id="timer-save" disabled>Save</button>
+          </div>
+        </section>
+      </section>
+
+      <section class="dashboard">
+        <div class="chart-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Overview</p>
+              <h2>Time by area</h2>
+            </div>
+            <button class="ghost-button compact" type="button" id="export-csv">Export CSV</button>
+          </div>
+          <div id="category-bars" class="category-bars"></div>
+        </div>
+
+        <div class="timeline-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Day Log</p>
+              <h2>Records</h2>
+            </div>
+            <button class="danger-button compact" type="button" id="clear-day">Clear day</button>
+          </div>
+          <div id="records" class="records"></div>
+        </div>
+      </section>
+    </main>
+
+    <template id="record-template">
+      <article class="record">
+        <div class="record-color"></div>
+        <div class="record-main">
+          <div class="record-title-row">
+            <strong class="record-title"></strong>
+            <span class="record-duration"></span>
+          </div>
+          <p class="record-meta"></p>
+        </div>
+        <button class="icon-button delete-record" type="button" aria-label="Delete record" title="Delete">×</button>
+      </article>
+    </template>
+
+    <script src="app.js?v=3"></script>
+  </body>
+</html>
